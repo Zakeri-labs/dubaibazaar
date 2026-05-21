@@ -171,15 +171,16 @@ export default function Home() {
         </div>
 
         <motion.div style={{ opacity: opacityHero }} className="container-x relative z-10 w-full">
-          <div className="hero-minimal-content flex flex-col items-start text-right max-w-4xl px-4">
+          <div className="hero-minimal-content flex flex-col items-center md:items-start text-center md:text-right max-w-5xl mx-auto md:ml-0 md:mr-auto px-4">
             {/* New Title Section */}
-            <div className="flex flex-col items-start gap-2 mb-8">
-              <h1 className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-black text-white leading-tight whitespace-nowrap">
+            <div className="flex flex-col items-center md:items-start gap-2 mb-8">
+              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black text-white leading-tight whitespace-nowrap">
                 خرید مستقیم <span className="text-brand-gold glow-text-gold">از دبی</span>
               </h1>
-              <div className="flex items-center gap-4 mt-4 md:mt-6">
-                <span className="text-lg sm:text-xl md:text-3xl font-bold text-white/90">تک و عمده</span>
-                <div className="h-0.5 md:h-1 w-10 md:w-16 bg-brand-gold" />
+              <div className="flex items-center justify-center md:justify-start gap-4 mt-4 md:mt-6">
+                <div className="h-px w-8 sm:w-12 bg-brand-gold/50 hidden md:block" />
+                <span className="text-xl sm:text-2xl md:text-3xl font-bold text-white/90">تک و عمده</span>
+                <div className="h-px w-8 sm:w-12 bg-brand-gold/50" />
               </div>
             </div>
             
