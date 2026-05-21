@@ -171,21 +171,25 @@ export default function Home() {
         </div>
 
         <motion.div style={{ opacity: opacityHero }} className="container-x relative z-10 w-full">
-          <div className="hero-minimal-content flex flex-col items-center md:items-start text-center md:text-right max-w-5xl mx-auto md:ml-0 md:mr-auto px-4">
+          <div className="hero-minimal-content flex flex-col items-center md:items-start text-center md:text-right max-w-5xl md:mr-0 md:ml-auto px-4">
             {/* New Title Section */}
-            <div className="flex flex-col items-center md:items-start gap-2 mb-8">
-              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black text-white leading-tight whitespace-nowrap">
+            <motion.div 
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              className="flex flex-col items-center md:items-start gap-2 mb-0 bg-white/5 backdrop-blur-xl md:bg-transparent md:backdrop-blur-none p-6 md:p-0 rounded-[2.5rem] md:rounded-none border border-white/10 md:border-none shadow-2xl md:shadow-none relative z-10 overflow-hidden"
+            >
+              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black text-white leading-tight whitespace-nowrap relative z-10">
                 خرید مستقیم <span className="text-brand-gold glow-text-gold">از دبی</span>
               </h1>
-              <div className="flex items-center justify-center md:justify-start gap-4 mt-4 md:mt-6">
+              <div className="flex items-center justify-center md:justify-start gap-4 mt-4 md:mt-6 relative z-10">
                 <div className="h-px w-8 sm:w-12 bg-brand-gold/50 hidden md:block" />
                 <span className="text-xl sm:text-2xl md:text-3xl font-bold text-white/90">تک و عمده</span>
                 <div className="h-px w-8 sm:w-12 bg-brand-gold/50" />
               </div>
-            </div>
+            </motion.div>
             
             {/* Interactive Call to Actions */}
-            <div className="flex flex-row items-center gap-2 md:gap-6 mt-6 md:mt-8 w-full md:w-auto">
+            <div className="flex flex-row items-center justify-center md:justify-start gap-2 md:gap-6 mt-[15px] md:mt-8 w-full md:w-auto">
               <Link to="/wholesale" className="group relative flex-1 md:flex-none">
                 <div className="absolute -inset-2 md:-inset-3 bg-brand-gold/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                 <div className="relative px-4 md:px-10 py-2.5 md:py-4 rounded-full bg-white/20 backdrop-blur-3xl saturate-150 border border-white/30 text-white transition-all duration-700 group-hover:scale-105 group-hover:bg-white/30 group-hover:border-white/50 shadow-2xl">
