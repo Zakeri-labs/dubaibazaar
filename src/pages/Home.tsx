@@ -190,14 +190,14 @@ export default function Home() {
           <motion.div 
             animate={{ y: [0, -20, 0], x: [0, 10, 0] }}
             transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-            className="floating-card absolute top-[25%] left-[8%] hidden xl:flex items-center gap-6 p-6 rounded-[2.5rem] bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl"
+            className="floating-card absolute top-[20%] left-[5%] hidden xl:flex items-center gap-4 p-4 rounded-[2rem] bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl"
           >
-            <div className="w-12 h-12 rounded-2xl bg-brand-gold/20 flex items-center justify-center text-brand-gold">
-              <Zap className="w-6 h-6" />
+            <div className="w-10 h-10 rounded-xl bg-brand-gold/20 flex items-center justify-center text-brand-gold">
+              <Zap className="w-5 h-5" />
             </div>
             <div className="pr-2">
-              <div className="text-[10px] font-black text-white/40 uppercase tracking-widest mb-1">Express Delivery</div>
-              <div className="text-sm font-bold text-white">ارسال سریع</div>
+              <div className="text-[9px] font-black text-white/40 uppercase tracking-widest mb-0.5">Express Delivery</div>
+              <div className="text-xs font-bold text-white">ارسال سریع</div>
             </div>
           </motion.div>
 
@@ -205,14 +205,14 @@ export default function Home() {
           <motion.div 
             animate={{ y: [0, 20, 0], x: [0, -10, 0] }}
             transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-            className="floating-card absolute top-[65%] left-[15%] -translate-x-1/2 -translate-y-1/2 flex items-center gap-6 p-6 rounded-[2.5rem] bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl z-20"
+            className="floating-card absolute top-[75%] md:top-[65%] left-[20%] md:left-[15%] -translate-x-1/2 -translate-y-1/2 flex items-center gap-3 md:gap-6 p-4 md:p-6 rounded-[2rem] md:rounded-[2.5rem] bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl z-20 scale-75 md:scale-100"
           >
-            <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center text-brand-gold">
-              <ShieldCheck className="w-6 h-6" />
+            <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-white/10 flex items-center justify-center text-brand-gold">
+              <ShieldCheck className="w-5 h-5 md:w-6 md:h-6" />
             </div>
-            <div className="pl-2">
-              <div className="text-[10px] font-black text-white/40 uppercase tracking-widest mb-1">Guaranteed</div>
-              <div className="text-sm font-bold text-white">ضمانت اصالت کالا</div>
+            <div className="pl-1 md:pl-2">
+              <div className="text-[8px] md:text-[10px] font-black text-white/40 uppercase tracking-widest mb-0.5 md:mb-1">Guaranteed</div>
+              <div className="text-xs md:text-sm font-bold text-white">ضمانت اصالت کالا</div>
             </div>
           </motion.div>
 
@@ -245,29 +245,29 @@ export default function Home() {
         </div>
 
         <div className="container-x relative z-10">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-20">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20">
             {/* Left Side - Large Typography */}
-            <div className="flex-1 text-right lg:text-right order-2 lg:order-1 w-full">
+            <div className="flex-1 text-right lg:text-right order-1 w-full">
               <motion.div
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                className="space-y-6"
+                className="space-y-4 md:space-y-6"
               >
-                <span className="text-brand-gold font-black tracking-[0.8em] uppercase text-xs block mb-4">The Dubai Experience</span>
-                <h2 className="text-5xl md:text-9xl font-black text-white leading-[1.1] tracking-tighter">
-                  از دبی <br />
-                  <span className="text-brand-gold glow-text-gold">حضوری</span> <br />
+                <span className="text-brand-gold font-black tracking-[0.5em] md:tracking-[0.8em] uppercase text-[10px] md:text-xs block mb-2 md:mb-4">The Dubai Experience</span>
+                <h2 className="text-4xl md:text-9xl font-black text-white leading-tight md:leading-[1.1] tracking-tighter">
+                  از دبی <span className="hidden md:inline"><br /></span>
+                  <span className="text-brand-gold glow-text-gold">حضوری</span> <span className="hidden md:inline"><br /></span>
                   خرید کن!
                 </h2>
-                <p className="text-white/60 text-lg md:text-2xl max-w-xl mr-0 ml-auto leading-relaxed font-medium pt-8 border-r-4 border-brand-gold/30 pr-6 md:pr-8">
+                <p className="text-white/60 text-base md:text-2xl max-w-xl mr-0 ml-auto leading-relaxed font-medium pt-4 md:pt-8 border-r-4 border-brand-gold/30 pr-6 md:pr-8">
                   ما فاصله را برای شما از بین برده‌ایم. هر آنچه در بازارهای دبی می‌پسندید را با یک کلیک درب منزل تحویل بگیرید.
                 </p>
               </motion.div>
             </div>
 
             {/* Right Side - Floating Glass Cards */}
-            <div className="flex-1 w-full max-w-2xl order-1 lg:order-2">
+            <div className="flex-1 w-full max-w-2xl order-2">
               <div className="relative space-y-8">
                 {[
                   { icon: Package, title: "خرید مستقیم و بدون واسطه", desc: "تیم ما در دبی به صورت حضوری بهترین قیمت‌ها را برای شما شکار می‌کند." },

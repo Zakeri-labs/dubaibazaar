@@ -99,14 +99,14 @@ export default function Header() {
               onClick={() => setOpen(false)}
             />
             <motion.aside
-              className="fixed top-0 right-0 bottom-0 w-[85%] max-w-sm bg-[#0F2C21] z-50 p-6 flex flex-col"
+              className="fixed top-0 right-0 bottom-0 w-[85%] max-w-sm bg-white z-[100] p-6 flex flex-col shadow-2xl"
               initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 220 }}
             >
               <div className="flex items-center justify-between mb-10">
-                <span className="font-black text-xl text-white">{SITE.brandFa}</span>
-                <button onClick={() => setOpen(false)} className="w-10 h-10 grid place-items-center rounded-full bg-white/10">
-                  <X className="w-5 h-5 text-white" />
+                <span className="font-black text-xl text-brand-green">{SITE.brandFa}</span>
+                <button onClick={() => setOpen(false)} className="w-10 h-10 grid place-items-center rounded-full bg-brand-green/10">
+                  <X className="w-5 h-5 text-brand-green" />
                 </button>
               </div>
               <nav className="flex flex-col gap-1">
@@ -121,7 +121,7 @@ export default function Header() {
                       end={n.to === "/"}
                       className={({ isActive }) =>
                         `block px-4 py-4 rounded-2xl text-lg font-bold transition-colors ${
-                          isActive ? "bg-brand-gold text-brand-deep shadow-glow" : "text-white/80 hover:bg-white/5"
+                          isActive ? "bg-brand-green text-brand-cream shadow-glow" : "text-brand-ink hover:bg-brand-green/5"
                         }`
                       }
                     >

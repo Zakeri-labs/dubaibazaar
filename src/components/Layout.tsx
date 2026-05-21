@@ -4,9 +4,20 @@ import Footer from "./Footer";
 import FloatingWhatsApp from "./FloatingWhatsApp";
 import ScrollToTop from "./ScrollToTop";
 import { AnimatePresence, motion } from "framer-motion";
+import { useEffect } from "react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function Layout() {
   const loc = useLocation();
+
+  useEffect(() => {
+    // Refresh ScrollTrigger after a small delay to ensure DOM is ready
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [loc.pathname]);
+
   return (
     <div className="min-h-screen flex flex-col">
       <ScrollToTop />
