@@ -25,22 +25,22 @@ export function useReveal<T extends HTMLElement = HTMLElement>(
     const ctx = gsap.context(() => {
       const els = gsap.utils.toArray<HTMLElement>(selector);
       els.forEach((el, i) => {
-        gsap.fromTo(
-          el,
-          { autoAlpha: 0, y: options.y ?? 40 },
-          {
-            autoAlpha: 1,
-            y: 0,
-            duration: options.duration ?? 1,
-            delay: (options.delay ?? 0) + i * (options.stagger ?? 0.1),
-            ease: options.ease ?? "power3.out",
-            scrollTrigger: {
-              trigger: el,
-              start: options.start ?? "top 85%",
-              toggleActions: "play none none reverse",
-            },
-          }
-        );
+        // Use a more robust way to ensure visibility
+        gsap.set(el, { opacity: 0, y: options.y ?? 40 });
+        
+        gsap.to(el, {
+          opacity: 1,
+          y: 0,
+          duration: options.duration ?? 1,
+          delay: (options.delay ?? 0) + i * (options.stagger ?? 0.1),
+          ease: options.ease ?? "power3.out",
+          scrollTrigger: {
+            trigger: el,
+            start: options.start ?? "top 90%", // Trigger slightly later
+            toggleActions: "play none none none", // Only play once, don't reverse
+            onEnter: () => gsap.to(el, { opacity: 1, y: 0, overwrite: true }),
+          },
+        });
       });
     }, ref);
     return () => ctx.revert();

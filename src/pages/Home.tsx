@@ -83,55 +83,53 @@ export default function Home() {
   const yBg = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
   const opacityHero = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
-  // hero entrance
   useEffect(() => {
     if (!heroRef.current) return;
     const ctx = gsap.context(() => {
+      // hero entrance
+      gsap.set(".hero-minimal-content > *, .floating-card, .hero-side-element", { opacity: 0, y: 30 });
+      
       const tl = gsap.timeline();
 
-      // Ensure content is visible initially if needed, then animate
-      gsap.set(".hero-minimal-content > *", { autoAlpha: 0, y: 30 });
-
       tl.to(".hero-minimal-content > *", {
-        autoAlpha: 1,
+        opacity: 1,
         y: 0,
         duration: 1,
         stagger: 0.15,
         ease: "power4.out",
-        delay: 0.5
+        delay: 0.3
       })
-        .from(".floating-card", { scale: 0.8, autoAlpha: 0, stagger: 0.2, duration: 1.2, ease: "back.out(1.2)" }, "-=1")
-        .from(".hero-side-element", { x: 50, autoAlpha: 0, duration: 1 }, "-=1");
+        .to(".floating-card", { scale: 1, opacity: 1, y: 0, stagger: 0.2, duration: 1.2, ease: "back.out(1.2)" }, "-=0.8")
+        .to(".hero-side-element", { x: 0, opacity: 1, duration: 1 }, "-=1");
       
       gsap.from(".hero-bg-img", { scale: 1.2, duration: 5, ease: "power2.out" });
 
       // Magic reveals for sections
       gsap.utils.toArray<HTMLElement>(".reveal-wow").forEach((el) => {
-        gsap.fromTo(el, 
-          { y: 60, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 1.5,
-            scrollTrigger: {
-              trigger: el,
-              start: "top 85%",
-              toggleActions: "play none none reverse"
-            }
+        gsap.set(el, { y: 60, opacity: 0 });
+        gsap.to(el, {
+          y: 0,
+          opacity: 1,
+          duration: 1.5,
+          scrollTrigger: {
+            trigger: el,
+            start: "top 90%",
+            toggleActions: "play none none none"
           }
-        );
+        });
       });
 
       // Slogan section whole reveal
-      gsap.from(".slogan-content-wrapper", {
-        y: 100,
-        opacity: 0,
+      gsap.set(".slogan-content-wrapper", { y: 100, opacity: 0 });
+      gsap.to(".slogan-content-wrapper", {
+        y: 0,
+        opacity: 1,
         duration: 1.2,
         ease: "power3.out",
         scrollTrigger: {
           trigger: ".slogan-section-trigger",
-          start: "top 80%",
-          toggleActions: "play none none reverse"
+          start: "top 85%",
+          toggleActions: "play none none none"
         }
       });
 
@@ -149,7 +147,7 @@ export default function Home() {
       <div className="grain-overlay" />
 
       {/* MINIMAL & MODERN HERO */}
-      <section ref={heroRef} className="relative h-[100vh] flex items-start md:items-center justify-center pt-[25vh] md:pt-0 overflow-hidden">
+      <section ref={heroRef} className="relative h-[100vh] flex items-start justify-start pt-[18vh] md:pt-[22vh] overflow-hidden">
         {/* Clean Background with Subtle Parallax */}
         <motion.div style={{ y: yBg }} className="absolute inset-0 z-0">
           <img
@@ -157,11 +155,11 @@ export default function Home() {
             alt="دبی بازار"
             className="hero-bg-img w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-transparent" />
         </motion.div>
 
         {/* Side Branding - Vertical */}
-        <div className="hero-side-element absolute right-8 top-1/2 -translate-y-1/2 z-20 hidden lg:flex flex-col items-center gap-12">
+        <div className="hero-side-element absolute left-8 top-1/2 -translate-y-1/2 z-20 hidden lg:flex flex-col items-center gap-12">
           <div className="w-px h-24 bg-white/20" />
           <div className="vertical-text text-white/40 font-black tracking-[0.5em] uppercase text-[10px] whitespace-nowrap">
             Est. 2024 • Dubai Bazaar Boutique
@@ -170,21 +168,21 @@ export default function Home() {
         </div>
 
         <motion.div style={{ opacity: opacityHero }} className="container-x relative z-10 w-full">
-          <div className="hero-minimal-content flex flex-col items-center text-center max-w-5xl mx-auto px-4">
+          <div className="hero-minimal-content flex flex-col items-start text-right max-w-4xl px-4">
             {/* New Title Section */}
-            <div className="flex flex-col items-center gap-2 mb-8">
+            <div className="flex flex-col items-start gap-2 mb-8">
               <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black text-white leading-tight">
-                خرید مستقیم <span className="text-brand-gold glow-text-gold">از دبی</span>
+                خرید مستقیم <br />
+                <span className="text-brand-gold glow-text-gold">از دبی</span>
               </h1>
-              <div className="flex items-center justify-center gap-4 mt-4">
-                <div className="h-px w-8 sm:w-12 bg-brand-gold/50" />
-                <span className="text-xl sm:text-2xl md:text-3xl font-bold text-white/90">تک و عمده</span>
-                <div className="h-px w-8 sm:w-12 bg-brand-gold/50" />
+              <div className="flex items-center gap-4 mt-4 md:mt-6">
+                <span className="text-lg sm:text-xl md:text-3xl font-bold text-white/90">تک و عمده</span>
+                <div className="h-0.5 md:h-1 w-10 md:w-16 bg-brand-gold" />
               </div>
             </div>
             
             {/* Interactive Call to Actions */}
-            <div className="flex flex-row items-center justify-center gap-3 md:gap-6 mt-6 w-auto">
+            <div className="flex flex-row items-center gap-3 md:gap-6 mt-6 md:mt-8 w-auto">
               <Link to="/wholesale" className="group relative w-auto">
                 <div className="absolute -inset-3 bg-brand-gold/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                 <div className="relative px-6 md:px-10 py-3 md:py-4 rounded-full bg-white/20 backdrop-blur-3xl saturate-150 border border-white/30 text-white transition-all duration-700 group-hover:scale-105 group-hover:bg-white/30 group-hover:border-white/50 shadow-2xl">

@@ -28,18 +28,9 @@ export default function Layout() {
     <div className="min-h-screen flex flex-col">
       <ScrollToTop />
       <Header />
-      <AnimatePresence mode="wait">
-        <motion.main
-          key={loc.pathname}
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -8 }}
-          transition={{ duration: 0.35, ease: "easeOut" }}
-          className="flex-1"
-        >
-          <Outlet />
-        </motion.main>
-      </AnimatePresence>
+      <main className="flex-1">
+        <Outlet />
+      </main>
       <Footer />
       <FloatingWhatsApp />
     </div>
