@@ -150,11 +150,14 @@ export default function Home() {
       <section ref={heroRef} className="relative h-[100vh] flex items-start justify-start pt-[18vh] md:pt-[22vh] overflow-hidden">
         {/* Clean Background with Subtle Parallax */}
         <motion.div style={{ y: yBg }} className="absolute inset-0 z-0">
-          <img
-            src="/images/hero2.webp"
-            alt="دبی بازار"
-            className="hero-bg-img w-full h-full object-cover"
-          />
+          <picture>
+            <source media="(max-width: 768px)" srcSet="/images/hero-mob.webp" />
+            <img
+              src="/images/hero2.webp"
+              alt="دبی بازار"
+              className="hero-bg-img w-full h-full object-cover"
+            />
+          </picture>
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-transparent" />
         </motion.div>
 
@@ -171,9 +174,8 @@ export default function Home() {
           <div className="hero-minimal-content flex flex-col items-start text-right max-w-4xl px-4">
             {/* New Title Section */}
             <div className="flex flex-col items-start gap-2 mb-8">
-              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black text-white leading-tight">
-                خرید مستقیم <br />
-                <span className="text-brand-gold glow-text-gold">از دبی</span>
+              <h1 className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-black text-white leading-tight whitespace-nowrap">
+                خرید مستقیم <span className="text-brand-gold glow-text-gold">از دبی</span>
               </h1>
               <div className="flex items-center gap-4 mt-4 md:mt-6">
                 <span className="text-lg sm:text-xl md:text-3xl font-bold text-white/90">تک و عمده</span>
@@ -182,20 +184,20 @@ export default function Home() {
             </div>
             
             {/* Interactive Call to Actions */}
-            <div className="flex flex-row items-center gap-3 md:gap-6 mt-6 md:mt-8 w-auto">
-              <Link to="/wholesale" className="group relative w-auto">
-                <div className="absolute -inset-3 bg-brand-gold/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                <div className="relative px-6 md:px-10 py-3 md:py-4 rounded-full bg-white/20 backdrop-blur-3xl saturate-150 border border-white/30 text-white transition-all duration-700 group-hover:scale-105 group-hover:bg-white/30 group-hover:border-white/50 shadow-2xl">
-                  <div className="relative z-10 flex items-center justify-center gap-2 md:gap-4">
-                    <span className="font-bold text-base md:text-lg tracking-tight text-white">ثبت سفارش</span>
-                    <ArrowLeft className="w-4 h-4 md:w-5 md:h-5 text-white group-hover:translate-x-[-4px] transition-transform duration-500" />
+            <div className="flex flex-row items-center gap-2 md:gap-6 mt-6 md:mt-8 w-full md:w-auto">
+              <Link to="/wholesale" className="group relative flex-1 md:flex-none">
+                <div className="absolute -inset-2 md:-inset-3 bg-brand-gold/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                <div className="relative px-4 md:px-10 py-2.5 md:py-4 rounded-full bg-white/20 backdrop-blur-3xl saturate-150 border border-white/30 text-white transition-all duration-700 group-hover:scale-105 group-hover:bg-white/30 group-hover:border-white/50 shadow-2xl">
+                  <div className="relative z-10 flex items-center justify-center gap-2 md:gap-4 whitespace-nowrap">
+                    <span className="font-bold text-sm md:text-lg tracking-tight text-white">ثبت سفارش</span>
+                    <ArrowLeft className="w-3.5 h-3.5 md:w-5 md:h-5 text-white group-hover:translate-x-[-4px] transition-transform duration-500" />
                   </div>
                 </div>
               </Link>
               
-              <a href={SITE.whatsappUrl} target="_blank" rel="noreferrer" className="group flex items-center justify-center gap-2 md:gap-4 px-6 md:px-8 py-3 md:py-4 rounded-full bg-white/20 backdrop-blur-3xl saturate-150 border border-white/30 text-white hover:text-white hover:bg-white/30 hover:border-white/50 transition-all duration-500 shadow-2xl w-auto">
-                <MessageCircle className="w-4 h-4 md:w-5 md:h-5 text-brand-gold" />
-                <span className="font-bold text-base md:text-lg text-white">واتساپ</span>
+              <a href={SITE.whatsappUrl} target="_blank" rel="noreferrer" className="group flex-1 md:flex-none flex items-center justify-center gap-2 md:gap-4 px-4 md:px-8 py-2.5 md:py-4 rounded-full bg-white/20 backdrop-blur-3xl saturate-150 border border-white/30 text-white hover:text-white hover:bg-white/30 hover:border-white/50 transition-all duration-500 shadow-2xl">
+                <MessageCircle className="w-3.5 h-3.5 md:w-5 md:h-5 text-brand-gold" />
+                <span className="font-bold text-sm md:text-lg text-white whitespace-nowrap">واتساپ</span>
               </a>
             </div>
           </div>
