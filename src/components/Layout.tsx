@@ -12,10 +12,16 @@ export default function Layout() {
 
   useEffect(() => {
     // Refresh ScrollTrigger after a small delay to ensure DOM is ready
-    const timer = setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 100);
-    return () => clearTimeout(timer);
+    // We do it multiple times to catch any layout shifts
+    const timer1 = setTimeout(() => ScrollTrigger.refresh(), 100);
+    const timer2 = setTimeout(() => ScrollTrigger.refresh(), 500);
+    const timer3 = setTimeout(() => ScrollTrigger.refresh(), 1000);
+    
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+      clearTimeout(timer3);
+    };
   }, [loc.pathname]);
 
   return (

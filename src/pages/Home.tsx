@@ -87,8 +87,19 @@ export default function Home() {
   useEffect(() => {
     if (!heroRef.current) return;
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
-      tl.from(".hero-minimal-content > *", { y: 40, autoAlpha: 0, stagger: 0.15, duration: 1.5 })
+      const tl = gsap.timeline();
+
+      // Ensure content is visible initially if needed, then animate
+      gsap.set(".hero-minimal-content > *", { autoAlpha: 0, y: 30 });
+
+      tl.to(".hero-minimal-content > *", {
+        autoAlpha: 1,
+        y: 0,
+        duration: 1,
+        stagger: 0.15,
+        ease: "power4.out",
+        delay: 0.5
+      })
         .from(".floating-card", { scale: 0.8, autoAlpha: 0, stagger: 0.2, duration: 1.2, ease: "back.out(1.2)" }, "-=1")
         .from(".hero-side-element", { x: 50, autoAlpha: 0, duration: 1 }, "-=1");
       
@@ -96,16 +107,19 @@ export default function Home() {
 
       // Magic reveals for sections
       gsap.utils.toArray<HTMLElement>(".reveal-wow").forEach((el) => {
-        gsap.from(el, {
-          y: 60,
-          opacity: 0,
-          duration: 1.5,
-          scrollTrigger: {
-            trigger: el,
-            start: "top 85%",
-            toggleActions: "play none none reverse"
+        gsap.fromTo(el, 
+          { y: 60, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 1.5,
+            scrollTrigger: {
+              trigger: el,
+              start: "top 85%",
+              toggleActions: "play none none reverse"
+            }
           }
-        });
+        );
       });
 
       // Slogan section whole reveal
@@ -120,6 +134,11 @@ export default function Home() {
           toggleActions: "play none none reverse"
         }
       });
+
+      // Refresh all triggers after setup
+      setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 200);
     }, heroRef);
     return () => ctx.revert();
   }, []);
@@ -130,7 +149,7 @@ export default function Home() {
       <div className="grain-overlay" />
 
       {/* MINIMAL & MODERN HERO */}
-      <section ref={heroRef} className="relative h-[100vh] flex items-center justify-center overflow-hidden">
+      <section ref={heroRef} className="relative h-[100vh] flex items-start md:items-center justify-center pt-[25vh] md:pt-0 overflow-hidden">
         {/* Clean Background with Subtle Parallax */}
         <motion.div style={{ y: yBg }} className="absolute inset-0 z-0">
           <img
@@ -165,20 +184,20 @@ export default function Home() {
             </div>
             
             {/* Interactive Call to Actions */}
-            <div className="flex flex-col md:flex-row items-center justify-center gap-6 mt-4 w-full md:w-auto">
-              <Link to="/wholesale" className="group relative w-full md:w-auto">
+            <div className="flex flex-row items-center justify-center gap-3 md:gap-6 mt-6 w-auto">
+              <Link to="/wholesale" className="group relative w-auto">
                 <div className="absolute -inset-3 bg-brand-gold/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                <div className="relative px-10 py-4 rounded-full bg-white/20 backdrop-blur-3xl saturate-150 border border-white/30 text-white transition-all duration-700 group-hover:scale-105 group-hover:bg-white/30 group-hover:border-white/50 shadow-2xl">
-                  <div className="relative z-10 flex items-center justify-center gap-4">
-                    <span className="font-bold text-lg tracking-tight text-white">ثبت سفارش</span>
-                    <ArrowLeft className="w-5 h-5 text-white group-hover:translate-x-[-4px] transition-transform duration-500" />
+                <div className="relative px-6 md:px-10 py-3 md:py-4 rounded-full bg-white/20 backdrop-blur-3xl saturate-150 border border-white/30 text-white transition-all duration-700 group-hover:scale-105 group-hover:bg-white/30 group-hover:border-white/50 shadow-2xl">
+                  <div className="relative z-10 flex items-center justify-center gap-2 md:gap-4">
+                    <span className="font-bold text-base md:text-lg tracking-tight text-white">ثبت سفارش</span>
+                    <ArrowLeft className="w-4 h-4 md:w-5 md:h-5 text-white group-hover:translate-x-[-4px] transition-transform duration-500" />
                   </div>
                 </div>
               </Link>
               
-              <a href={SITE.whatsappUrl} target="_blank" rel="noreferrer" className="group flex items-center justify-center gap-4 px-8 py-4 rounded-full bg-white/20 backdrop-blur-3xl saturate-150 border border-white/30 text-white hover:text-white hover:bg-white/30 hover:border-white/50 transition-all duration-500 shadow-2xl w-full md:w-auto">
-                <MessageCircle className="w-5 h-5 text-brand-gold" />
-                <span className="font-bold text-lg text-white">واتساپ</span>
+              <a href={SITE.whatsappUrl} target="_blank" rel="noreferrer" className="group flex items-center justify-center gap-2 md:gap-4 px-6 md:px-8 py-3 md:py-4 rounded-full bg-white/20 backdrop-blur-3xl saturate-150 border border-white/30 text-white hover:text-white hover:bg-white/30 hover:border-white/50 transition-all duration-500 shadow-2xl w-auto">
+                <MessageCircle className="w-4 h-4 md:w-5 md:h-5 text-brand-gold" />
+                <span className="font-bold text-base md:text-lg text-white">واتساپ</span>
               </a>
             </div>
           </div>
@@ -230,7 +249,7 @@ export default function Home() {
       </section>
 
       {/* LUXURY SLOGAN SECTION - REDESIGNED */}
-      <section className="relative min-h-screen bg-brand-deep flex items-center py-32 overflow-hidden">
+      <section className="relative min-h-[auto] md:min-h-screen bg-brand-deep flex items-center pt-16 pb-20 md:py-32 overflow-hidden">
         {/* Background Image with Masking */}
         <div className="absolute inset-0 z-0">
           <motion.img 
@@ -271,7 +290,7 @@ export default function Home() {
               <div className="relative space-y-8">
                 {[
                   { icon: Package, title: "خرید مستقیم و بدون واسطه", desc: "تیم ما در دبی به صورت حضوری بهترین قیمت‌ها را برای شما شکار می‌کند." },
-                  { icon: Truck, title: "ارسال هوایی فوق‌سریع", desc: "بسته‌های شما با اولویت بالا و ایمنی کامل در کمترین زمان ممکن ارسال می‌شوند." }
+                  { icon: Truck, title: "ارسال سریع به سراسر کشور", desc: "بسته‌های شما با اولویت بالا و ایمنی کامل در کمترین زمان ممکن ارسال می‌شوند." }
                 ].map((item, idx) => (
                   <motion.div
                     key={idx}
@@ -314,7 +333,7 @@ export default function Home() {
       </section>
 
       {/* PREMIUM MODERN CATEGORIES SECTION */}
-      <section className="py-40 bg-[#0F2C21] relative overflow-hidden">
+      <section className="py-20 md:py-40 bg-[#0F2C21] relative overflow-hidden">
         {/* Subtle background element */}
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-30">
           <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-brand-gold/10 blur-[120px] rounded-full" />
@@ -322,7 +341,7 @@ export default function Home() {
         </div>
 
         <div className="container-x relative z-10">
-          <div className="flex flex-col items-center text-center mb-16">
+          <div className="flex flex-col items-center text-center mb-12 md:mb-16">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -330,7 +349,7 @@ export default function Home() {
               className="max-w-3xl"
             >
               <span className="text-brand-gold font-black tracking-[0.5em] uppercase text-[10px] block mb-4">Product Collections</span>
-              <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter leading-none mb-8">
+              <h2 className="text-3xl md:text-7xl font-black text-white tracking-tighter leading-none mb-6 md:mb-8">
                 دسته بندی <span className="text-brand-gold">محصولات</span>
               </h2>
               <div className="w-20 h-1 bg-brand-gold/30 mx-auto rounded-full" />
@@ -350,36 +369,38 @@ export default function Home() {
                   stiffness: 100,
                   damping: 15
                 }}
-                className="group flex flex-col items-center"
+                className="group"
               >
-                {/* Circular Image Container */}
-                <div className="relative w-28 h-28 md:w-36 md:h-36 mb-4">
-                  <div className="absolute inset-0 rounded-full border border-brand-gold/30 scale-110 group-hover:scale-125 transition-transform duration-700 pointer-events-none" />
-                  <div className="absolute inset-0 rounded-full border border-brand-gold/20 scale-125 group-hover:scale-150 transition-transform duration-1000 pointer-events-none opacity-0 group-hover:opacity-100" />
-                  
-                  <div 
-                    className="relative w-full h-full rounded-full overflow-hidden bg-brand-deep shadow-2xl border-4 border-brand-green/20 transition-all duration-700 group-hover:shadow-2xl group-hover:shadow-brand-gold/20 group-hover:-translate-y-2"
-                    style={{ WebkitMaskImage: "-webkit-radial-gradient(white, black)" }}
-                  >
-                    <img 
-                      src={c.image} 
-                      alt={c.label}
-                      className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 rounded-full"
-                    />
+                <Link to="/wholesale" className="flex flex-col items-center">
+                  {/* Circular Image Container */}
+                  <div className="relative w-28 h-28 md:w-36 md:h-36 mb-4">
+                    <div className="absolute inset-0 rounded-full border border-brand-gold/30 scale-110 group-hover:scale-125 transition-transform duration-700 pointer-events-none" />
+                    <div className="absolute inset-0 rounded-full border border-brand-gold/20 scale-125 group-hover:scale-150 transition-transform duration-1000 pointer-events-none opacity-0 group-hover:opacity-100" />
                     
-                    {/* Centered Icon on Hover */}
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-brand-deep/30 backdrop-blur-[2px] rounded-full">
-                      <c.icon className="w-8 h-8 text-brand-gold" />
+                    <div 
+                      className="relative w-full h-full rounded-full overflow-hidden bg-brand-deep shadow-2xl border-4 border-brand-green/20 transition-all duration-700 group-hover:shadow-2xl group-hover:shadow-brand-gold/20 group-hover:-translate-y-2"
+                      style={{ WebkitMaskImage: "-webkit-radial-gradient(white, black)" }}
+                    >
+                      <img 
+                        src={c.image} 
+                        alt={c.label}
+                        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 rounded-full"
+                      />
+                      
+                      {/* Centered Icon on Hover */}
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-brand-deep/30 backdrop-blur-[2px] rounded-full">
+                        <c.icon className="w-8 h-8 text-brand-gold" />
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                {/* Minimal Label */}
-                <div className="text-center">
-                  <span className="text-[9px] font-black text-brand-gold uppercase tracking-widest block mb-1 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">{c.labelEn}</span>
-                  <h3 className="text-lg md:text-xl font-black text-white group-hover:text-brand-gold transition-colors duration-500">{c.label}</h3>
-                  <div className="w-0 h-0.5 bg-brand-gold mx-auto mt-2 group-hover:w-full transition-all duration-700" />
-                </div>
+                  {/* Minimal Label */}
+                  <div className="text-center">
+                    <span className="text-[9px] font-black text-brand-gold uppercase tracking-widest block mb-1 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">{c.labelEn}</span>
+                    <h3 className="text-lg md:text-xl font-black text-white group-hover:text-brand-gold transition-colors duration-500">{c.label}</h3>
+                    <div className="w-0 h-0.5 bg-brand-gold mx-auto mt-2 group-hover:w-full transition-all duration-700" />
+                  </div>
+                </Link>
               </motion.div>
             ))}
           </div>
@@ -400,7 +421,7 @@ export default function Home() {
               className="space-y-4"
             >
               <span className="text-brand-gold font-black tracking-[1em] uppercase text-[10px] block">The Protocol</span>
-              <h2 className="text-5xl md:text-7xl font-black text-brand-deep tracking-tighter leading-none">
+              <h2 className="text-3xl md:text-7xl font-black text-brand-deep tracking-tighter leading-none">
                 مسیر <span className="text-brand-gold">هوشمند</span> خرید
               </h2>
               <p className="text-brand-deep/40 text-lg font-medium max-w-xl mx-auto pt-4">
@@ -476,7 +497,7 @@ export default function Home() {
               className="max-w-3xl"
             >
               <span className="text-brand-gold font-black tracking-[0.8em] uppercase text-[10px] block mb-6">Voice of Trust</span>
-              <h2 className="text-5xl md:text-7xl font-black text-brand-deep tracking-tighter leading-none mb-8">
+              <h2 className="text-3xl md:text-7xl font-black text-brand-deep tracking-tighter leading-none mb-6 md:mb-8">
                 رضایت، فراتر از <span className="text-brand-gold">کلمات</span>
               </h2>
               <p className="text-brand-deep/40 text-lg font-medium max-w-xl mx-auto">

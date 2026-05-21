@@ -21,7 +21,7 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-700 ${
+      className={`fixed top-0 inset-x-0 z-[100] transition-all duration-700 ${
         scrolled
           ? "py-3 bg-transparent"
           : "py-6 bg-brand-ink/40 backdrop-blur-xl"
@@ -94,19 +94,24 @@ export default function Header() {
         {open && (
           <>
             <motion.div
-              className="fixed inset-0 bg-brand-ink/50 backdrop-blur-sm z-40"
+              className="fixed inset-0 bg-brand-ink/60 backdrop-blur-md z-[110]"
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               onClick={() => setOpen(false)}
             />
             <motion.aside
-              className="fixed top-0 right-0 bottom-0 w-[85%] max-w-sm bg-white z-[100] p-6 flex flex-col shadow-2xl"
+              className="fixed top-0 right-0 bottom-0 w-full bg-white z-[120] p-8 flex flex-col shadow-2xl"
               initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 220 }}
             >
-              <div className="flex items-center justify-between mb-10">
-                <span className="font-black text-xl text-brand-green">{SITE.brandFa}</span>
-                <button onClick={() => setOpen(false)} className="w-10 h-10 grid place-items-center rounded-full bg-brand-green/10">
-                  <X className="w-5 h-5 text-brand-green" />
+              <div className="flex items-center justify-between mb-12">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl overflow-hidden shadow-sm">
+                    <img src="/images/logo.webp" alt={SITE.brandFa} className="w-full h-full object-cover" />
+                  </div>
+                  <span className="font-black text-2xl text-brand-green">{SITE.brandFa}</span>
+                </div>
+                <button onClick={() => setOpen(false)} className="w-12 h-12 grid place-items-center rounded-2xl bg-brand-green/5 text-brand-green hover:bg-brand-green/10 transition-colors">
+                  <X className="w-7 h-7" />
                 </button>
               </div>
               <nav className="flex flex-col gap-1">
